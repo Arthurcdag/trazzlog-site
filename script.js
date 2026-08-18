@@ -2,6 +2,26 @@ const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
 const quoteForm = document.querySelector(".quote-form");
 const formStatus = document.querySelector(".form-status");
+const revealTargets = Array.from(document.querySelectorAll("[data-reveal]"));
+
+document.documentElement.classList.add("motion-ready");
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -10%", threshold: 0.12 },
+  );
+
+  revealTargets.forEach((target) => revealObserver.observe(target));
+} else {
+  revealTargets.forEach((target) => target.classList.add("is-visible"));
+}
 
 function setMenuOpen(isOpen) {
   if (!menuButton || !siteNav) return;
