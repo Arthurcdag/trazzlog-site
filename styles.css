@@ -388,7 +388,7 @@ img {
 }
 
 .proof-band {
-  background: linear-gradient(105deg, #0d141d 0%, #111b28 52%, #ff7900 52%, #ff9c43 100%);
+  background: linear-gradient(90deg, #0d141d 0%, #111b28 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -432,25 +432,76 @@ img {
 .proof-feature strong {
   color: var(--orange-light);
   font-size: 2.8rem;
+  animation: metric-glow 3.6s ease-in-out infinite;
+}
+
+.proof-feature:nth-child(2) strong {
+  animation-delay: -1.8s;
 }
 
 .proof-link {
-  color: #111923;
+  position: relative;
   transition:
     background-color 180ms ease,
     transform 180ms ease;
 }
 
-.proof-link strong,
-.proof-link span,
-.proof-link b {
+.proof-link > * {
+  position: relative;
+  z-index: 1;
+}
+
+.proof-link:nth-child(3),
+.proof-link:nth-child(3) strong {
+  color: #ffffff;
+}
+
+.proof-link:nth-child(3) span {
+  color: #cbd4df;
+}
+
+.proof-link:nth-child(3) b {
+  color: var(--orange-light);
+}
+
+.proof-link:nth-child(4),
+.proof-link:nth-child(4) strong,
+.proof-link:nth-child(4) span,
+.proof-link:nth-child(4) b {
   color: #111923;
+}
+
+.proof-link:nth-child(4) {
+  background: linear-gradient(90deg, #ff7900 0%, #ff9c43 100%);
+}
+
+.proof-link:nth-child(4)::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: -34px;
+  width: 35px;
+  background: #ff7900;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.proof-link b {
+  display: inline-block;
+  animation: arrow-drift 1.8s ease-in-out infinite;
 }
 
 .proof-link:hover,
 .proof-link:focus-visible {
   background: rgba(255, 255, 255, 0.22);
   transform: translateY(-3px);
+}
+
+.proof-link:nth-child(4):hover,
+.proof-link:nth-child(4):focus-visible {
+  background: linear-gradient(90deg, #ff8a23 0%, #ffac62 100%);
 }
 
 .section {
@@ -778,6 +829,7 @@ img {
   background: var(--orange);
   border-radius: 50%;
   transform: translateY(-50%);
+  animation: route-pulse 2.4s ease-out infinite;
 }
 
 .unit-grid {
@@ -1103,6 +1155,39 @@ textarea:focus {
 
   to {
     transform: scale(1.09) translate3d(-1.2%, -0.7%, 0);
+  }
+}
+
+@keyframes metric-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 0 rgba(255, 121, 0, 0);
+  }
+
+  50% {
+    text-shadow: 0 0 18px rgba(255, 121, 0, 0.32);
+  }
+}
+
+@keyframes arrow-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes route-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 121, 0, 0.38);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 9px rgba(255, 121, 0, 0);
   }
 }
 
