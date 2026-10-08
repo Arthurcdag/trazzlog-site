@@ -924,6 +924,60 @@ img {
   font-size: 0.96rem;
 }
 
+.branch-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  margin: 42px 0;
+  padding: clamp(24px, 4vw, 52px);
+  background: #ffffff;
+  border: 1px solid #dce2e8;
+  border-left: 4px solid var(--orange);
+  border-radius: var(--radius);
+}
+
+.branch-photo {
+  justify-self: center;
+  width: min(100%, 330px);
+  margin: 0;
+}
+
+.branch-photo a,
+.branch-photo img {
+  display: block;
+  width: 100%;
+}
+
+.branch-photo img {
+  height: auto;
+  border-radius: 4px;
+}
+
+.branch-photo figcaption {
+  margin-top: 12px;
+  color: var(--light-muted);
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+#unidade-sp,
+#filial-sao-paulo,
+#sp-branch-title {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 760px) {
+  .branch-showcase {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px 20px;
+  }
+
+  .branch-showcase .facility-copy {
+    order: -1;
+  }
+}
+
 .route-line {
   display: grid;
   grid-template-columns: 1fr;
