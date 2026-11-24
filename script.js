@@ -1,7 +1,5 @@
 const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
-const quoteForm = document.querySelector(".quote-form");
-const formStatus = document.querySelector(".form-status");
 const revealTargets = Array.from(document.querySelectorAll("[data-reveal]"));
 const whatsappBaseUrl = "https://wa.me/5554981617755";
 const whatsappHandoffKey = "trazzlog.whatsapp-handoff";
@@ -27,14 +25,6 @@ function startWhatsappContact(message = "") {
   window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   window.location.assign(new URL("solicitacao-recebida/", window.location.href).href);
 }
-
-document.querySelectorAll(`a[href="${whatsappBaseUrl}"]`).forEach((link) => {
-  link.addEventListener("click", (event) => {
-    if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    startWhatsappContact();
-  });
-});
 
 document.documentElement.classList.add("motion-ready");
 
@@ -70,9 +60,10 @@ siteNav?.addEventListener("click", (event) => {
   if (event.target instanceof HTMLAnchorElement) setMenuOpen(false);
 });
 
-quoteForm?.addEventListener("submit", (event) => {
+function submitQuote(event) {
   event.preventDefault();
 
+  const quoteForm = event.currentTarget;
   const form = new FormData(quoteForm);
   const requirements = form.getAll("requirements").join(", ") || "Nenhum informado";
   const read = (name) => String(form.get(name) || "-").trim() || "-";
@@ -96,6 +87,24 @@ quoteForm?.addEventListener("submit", (event) => {
     `Observações: ${read("notes")}`,
   ].join("\n");
 
-  formStatus?.classList.add("is-visible");
+  quoteForm.querySelector(".form-status")?.classList.add("is-visible");
   startWhatsappContact(message);
-});
+}
+
+if (window.location.protocol === "https:" && window.isSecureContext) {
+  const template = document.getElementById("quote-template");
+  const fallback = document.getElementById("quote-fallback");
+  const form = template?.content.querySelector("form");
+  if (form && fallback) {
+    form.addEventListener("submit", submitQuote);
+    fallback.replaceWith(template.content);
+  }
+
+  document.querySelectorAll(`a[href="${whatsappBaseUrl}"]`).forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      startWhatsappContact();
+    });
+  });
+}
