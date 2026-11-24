@@ -11,6 +11,11 @@
     }
   }
 
+  if (window.location.protocol !== "https:" || !window.isSecureContext) {
+    clearHandoff();
+    return;
+  }
+
   try {
     const stored = sessionStorage.getItem(handoffKey);
     const handoff = stored ? JSON.parse(stored) : null;

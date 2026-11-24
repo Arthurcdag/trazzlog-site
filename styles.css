@@ -1146,15 +1146,23 @@ img {
   text-transform: uppercase;
 }
 
-.quote-form {
+.quote-form,
+.quote-fallback {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   padding: 28px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+.quote-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quote-fallback p {
+  margin: 0;
 }
 
 .quote-form > label,
@@ -1717,7 +1725,8 @@ textarea:focus {
     padding: 22px;
   }
 
-  .quote-form {
+  .quote-form,
+  .quote-fallback {
     padding: 20px;
   }
 
